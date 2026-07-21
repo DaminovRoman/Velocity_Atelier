@@ -47,7 +47,7 @@
      term alone blowing out the layout. --fs-display-xl in
      particular uses a smaller vw coefficient than before so it
      doesn't overshoot on narrow-but-not-tiny phones (360–390px). */
-  --fs-display-xl: clamp(2.25rem, 8vw + 0.5rem, 7.5rem);
+  --fs-display-xl: clamp(2.25rem, 6.5vw + 0.5rem, 7.5rem);
   --fs-display-lg: clamp(1.875rem, 6vw + 0.5rem, 5rem);
   --fs-display-md: clamp(1.5rem, 4vw + 0.5rem, 3.25rem);
   --fs-heading:     clamp(1.25rem, 2.2vw + 0.7rem, 2rem);
@@ -154,6 +154,9 @@ p, h1, h2, h3, h4, dd, dt, span, a { overflow-wrap: break-word; }
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
