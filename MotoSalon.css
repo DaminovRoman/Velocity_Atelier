@@ -703,10 +703,10 @@ section > *:not(.hero__media):not(.hero__grid) {
 .hero__actions .btn {
   text-align: center;
 }
+
 @media (max-width: 480px) {
   .hero__actions .btn {
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
+    font-size: 15px;
   }
 }
 .hero__actions {
