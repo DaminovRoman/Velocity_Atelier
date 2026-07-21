@@ -709,9 +709,9 @@ section > *:not(.hero__media):not(.hero__grid) {
 
 .hero__actions .btn {
   text-align: center;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 }
-
 @media (min-width: 480px) {
   .hero__actions {
     flex-direction: row;
