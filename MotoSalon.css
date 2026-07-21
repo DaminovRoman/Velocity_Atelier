@@ -1,0 +1,1667 @@
+/* ================================================================
+   VELOCITY ATELIER — Design System
+   Neo Industrial Luxury
+   ================================================================ */
+
+/* ---------------------------------------------------------------
+   1. TOKENS
+   --------------------------------------------------------------- */
+:root {
+
+  /* --- Palette: base --- */
+  --carbon-black:      #0A0B0D;
+  --slate-titanium:    #14161A;
+  --graphite-grey:     #1F2226;
+  --smoked-steel:      #2B2F35;
+  --arctic-white:      #F4F5F6;
+  --arctic-white-dim:  #C9CCD1;
+
+  /* --- Palette: accent --- */
+  --burning-copper:    #C5622C;
+  --burning-copper-lt: #E08752;
+  --electric-cyan:     #4FE0D4;
+  --brushed-titanium:  #9CA1A8;
+
+  /* --- Semantic mapping --- */
+  --bg-base:           var(--carbon-black);
+  --bg-raised:         var(--slate-titanium);
+  --bg-card:           var(--graphite-grey);
+  --bg-card-hover:     var(--smoked-steel);
+  --border-hairline:   rgba(244, 245, 246, 0.08);
+  --border-hairline-lt: rgba(244, 245, 246, 0.14);
+  --text-primary:      var(--arctic-white);
+  --text-secondary:    var(--arctic-white-dim);
+  --text-tertiary:     var(--brushed-titanium);
+  --accent-primary:    var(--burning-copper);
+  --accent-secondary:  var(--electric-cyan);
+
+  /* --- Typography families --- */
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'General Sans', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* --- Fluid type scale (clamp: min, preferred-vw, max) ---
+     Minimums are deliberately conservative: they must still fit
+     on a 280px-wide unfolded/narrow device AND survive a user's
+     OS-level text-size-increase (accessibility) without the vw
+     term alone blowing out the layout. --fs-display-xl in
+     particular uses a smaller vw coefficient than before so it
+     doesn't overshoot on narrow-but-not-tiny phones (360–390px). */
+  --fs-display-xl: clamp(2.25rem, 8vw + 0.5rem, 7.5rem);
+  --fs-display-lg: clamp(1.875rem, 6vw + 0.5rem, 5rem);
+  --fs-display-md: clamp(1.5rem, 4vw + 0.5rem, 3.25rem);
+  --fs-heading:     clamp(1.25rem, 2.2vw + 0.7rem, 2rem);
+  --fs-body-lg:     clamp(1rem, 0.8vw + 0.8rem, 1.25rem);
+  --fs-body:        clamp(0.9rem, 0.5vw + 0.78rem, 1.0625rem);
+  --fs-small:       clamp(0.8rem, 0.3vw + 0.7rem, 0.9rem);
+  --fs-mono:        clamp(0.75rem, 0.25vw + 0.68rem, 0.8125rem);
+
+  /* --- Spacing scale --- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1.25rem;
+  --space-md:  2rem;
+  --space-lg:  3.5rem;
+  --space-xl:  6rem;
+  --space-2xl: 9rem;
+  --space-3xl: 13rem;
+
+  /* --- Fixed nav height reserve ---
+     Approximates .nav's real rendered height (44px burger button +
+     20px top/bottom padding ≈ 84px) so sections that sit directly
+     under the fixed header can reserve exact clearance instead of
+     guessing with a generic spacing token. Slightly generous on
+     purpose — better a few extra px of breathing room than the
+     header re-overlapping/clipping content underneath it. */
+  --nav-height: 84px;
+
+  /* --- Layout --- */
+  --container-max: 1440px;
+  --container-pad: clamp(1.25rem, 4vw, 4rem);
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 24px;
+
+  /* --- Safe area (notch / Dynamic Island / gesture nav) ---
+     Falls back to 0px on browsers without env() support.
+     Requires viewport-fit=cover in the HTML viewport meta tag. */
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-right:  env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left:   env(safe-area-inset-left, 0px);
+
+  /* --- Viewport height (svh with fallback to vh for older browsers) --- */
+  --vh-full: 100vh;
+  --vh-full: 100svh;
+
+  /* --- Motion: easing curves --- */
+  --ease-atelier: cubic-bezier(0.16, 1, 0.3, 1);       /* architectural reveal, decelerate */
+  --ease-velocity: cubic-bezier(0.65, 0, 0.35, 1);      /* velocity scroll, symmetric fast */
+  --ease-magnetic: cubic-bezier(0.34, 1.56, 0.64, 1);   /* magnetic buttons, slight overshoot */
+  --ease-liquid: cubic-bezier(0.22, 1, 0.36, 1);        /* liquid hover, glass morph */
+
+  /* --- Motion: durations --- */
+  --dur-instant: 120ms;
+  --dur-fast: 240ms;
+  --dur-base: 420ms;
+  --dur-slow: 680ms;
+  --dur-reveal: 900ms;
+
+  /* --- Z-index scale --- */
+  --z-base: 1;
+  --z-card: 10;
+  --z-mobile-menu: 600;
+  /* .nav is position:fixed with its own z-index, which makes it a
+     stacking context of its own. That means the burger button's
+     z-index (set higher than --z-mobile-menu) was only being compared
+     *within* .nav's own context — at the document level it was still
+     .nav's z-index (previously below --z-mobile-menu) that decided
+     the outcome, so the whole header, burger included, sat behind
+     the open mobile menu and the close (✕) icon disappeared entirely.
+     Nav now sits above the mobile-menu layer so the logo and the
+     burger/close button always stay visible and clickable on top of
+     the open menu. */
+  --z-nav: 650;
+  --z-modal: 800;
+  --z-preloader: 999;
+}
+
+/* ---------------------------------------------------------------
+   2. RESET
+   --------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ---------------------------------------------------------------
+   HORIZONTAL OVERFLOW GUARD
+   Purpose: a single element wider than the viewport (an image
+   without object-fit, a long unbreakable word/URL, a full-bleed
+   absolute child whose ancestor forgot overflow:hidden) silently
+   stretches the whole document sideways — this is what produced
+   the horizontal-swipe bug (the .showroom section's background
+   image had no clipping ancestor). These two rules are a global
+   safety net on top of the fixes to specific sections below;
+   they don't replace those fixes, they catch what's still missed.
+   --------------------------------------------------------------- */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+img, video, iframe, svg { max-width: 100%; }
+
+/* Long unbroken strings (URLs, etc.) shouldn't force the box wider
+   than its container — wraps instead of pushing the layout sideways */
+p, h1, h2, h3, h4, dd, dt, span, a { overflow-wrap: break-word; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+img, video { display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+ul, dl { list-style: none; }
+svg { display: block; }
+
+::selection { background: var(--burning-copper); color: var(--carbon-black); }
+
+/* ---------------------------------------------------------------
+   3. TYPOGRAPHY PRIMITIVES
+   --------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+em {
+  font-style: normal;
+  color: var(--accent-primary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------
+   4. LAYOUT PRIMITIVES
+   --------------------------------------------------------------- */
+.section-head {
+  max-width: 780px;
+  margin-bottom: var(--space-xl);
+}
+
+.section-head--wide { max-width: 980px; }
+
+.section-head__index {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.section-head__index--light { color: var(--electric-cyan); }
+
+.section-head__title {
+  font-size: var(--fs-display-md);
+  color: var(--text-primary);
+}
+
+section {
+  position: relative;
+  padding: var(--space-2xl) var(--container-pad);
+}
+
+section > *:not(.hero__media):not(.hero__grid) {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------------------------------------------------------------
+   5. REVEAL ANIMATION HOOKS (Architectural Reveal)
+   Trigger: IntersectionObserver adds .is-visible
+   Duration: --dur-reveal | Easing: --ease-atelier
+   Purpose: elements rise + fade as they enter viewport, evoking
+   panels being unveiled in a gallery rather than "popping in"
+   --------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-atelier),
+    transform var(--dur-reveal) var(--ease-atelier);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="line"] {
+  overflow: hidden;
+  display: block;
+}
+
+/* Staggered delays applied via inline custom property from JS/HTML data-attr */
+[data-reveal-delay] { transition-delay: var(--reveal-delay, 0ms); }
+
+/* ---------------------------------------------------------------
+   6. PRELOADER
+   --------------------------------------------------------------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background: var(--carbon-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  transition: opacity var(--dur-slow) var(--ease-atelier), visibility var(--dur-slow) var(--ease-atelier);
+}
+
+.preloader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__mark { width: 56px; height: 56px; color: var(--text-primary); }
+.preloader__glyph {
+  width: 100%; height: 100%;
+  animation: pulse-glyph 1.6s var(--ease-atelier) infinite;
+}
+
+@keyframes pulse-glyph {
+  0%, 100% { opacity: 0.4; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.preloader__bar {
+  width: 180px;
+  height: 1px;
+  background: var(--border-hairline-lt);
+  overflow: hidden;
+}
+
+.preloader__fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--accent-primary);
+  transition: width var(--dur-slow) var(--ease-velocity);
+}
+
+/* ---------------------------------------------------------------
+   7. NAVIGATION
+   --------------------------------------------------------------- */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: var(--z-nav);
+  padding:
+    calc(var(--space-sm) + var(--safe-top))
+    calc(var(--container-pad) + var(--safe-right))
+    var(--space-sm)
+    calc(var(--container-pad) + var(--safe-left));
+  background: linear-gradient(to bottom, rgba(10,11,13,0.85), transparent);
+  transition: background var(--dur-base) var(--ease-liquid), padding var(--dur-base) var(--ease-liquid);
+}
+
+.nav.is-scrolled {
+  background: rgba(10, 11, 13, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  padding-top: var(--space-xs);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.nav__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.nav__glyph { width: 26px; height: 26px; color: var(--accent-primary); }
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav__link {
+  position: relative;
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  padding: var(--space-3xs) 0;
+  transition: color var(--dur-fast) var(--ease-liquid);
+}
+
+.nav__link span { position: relative; }
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: var(--accent-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-base) var(--ease-liquid);
+}
+
+.nav__link:hover { color: var(--text-primary); }
+.nav__link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.nav__cta { display: inline-flex; }
+
+.nav__burger {
+  position: relative;
+  z-index: calc(var(--z-mobile-menu) + 1);
+  width: 44px; height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: transform var(--dur-base) var(--ease-magnetic);
+}
+
+.nav__burger[aria-expanded="true"] {
+  transform: rotate(90deg);
+}
+
+.nav__burger span {
+  display: block;
+  width: 24px; height: 2px;
+  border-radius: 1px;
+  background: var(--text-primary);
+  transition: transform var(--dur-base) var(--ease-magnetic), opacity var(--dur-fast) var(--ease-liquid);
+}
+
+/* Burger -> close (✕): the two outer bars rotate 45°/-45° and slide
+   toward the icon's vertical center so they cross exactly on top of
+   each other, forming a clean X; the middle bar shrinks away instead
+   of just fading, so nothing lingers behind the crossed lines. */
+.nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------------------------------------------------------------
+   8. MOBILE MENU
+   NOTE: lives at body-level in HTML (direct sibling of header),
+   NOT nested inside .nav — prevents ancestor stacking-context
+   (e.g. a transformed/opacity-animated .nav) from trapping the
+   fixed overlay beneath other later-painted siblings.
+   --------------------------------------------------------------- */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-mobile-menu);
+  background: var(--carbon-black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding:
+    calc(var(--nav-height) + var(--safe-top) + var(--space-xs))
+    calc(var(--container-pad) + var(--safe-right))
+    calc(var(--space-md) + var(--safe-bottom))
+    calc(var(--container-pad) + var(--safe-left));
+  /* No scrolling: the whole panel (header + links + CTA) is sized to
+     always fit within one screen instead of overflowing and requiring
+     a scroll gesture to reach the bottom items or the button. */
+  overflow: hidden;
+  transform: translateY(-100%);
+  transition: transform var(--dur-slow) var(--ease-atelier);
+}
+
+.mobile-menu.is-open { transform: translateY(0); }
+
+.mobile-menu__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex: 1;
+  min-height: 0;
+  /* Sized with clamp() rather than the larger --fs-display-md token
+     used elsewhere: fitting 8 links + header + CTA into one screen
+     without scrolling means each row needs to be noticeably more
+     compact than a full display heading. */
+  gap: var(--space-3xs);
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  font-family: var(--font-display);
+  /* Compact clamp instead of --fs-display-md: with 8 links, a header
+     and a CTA all required to fit on one non-scrolling screen, a full
+     display-heading size would force either overflow or overlap. */
+  font-size: clamp(1.15rem, 5.5vh, 1.8rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  opacity: 0.6;
+  transition: opacity var(--dur-fast) var(--ease-liquid), transform var(--dur-fast) var(--ease-liquid);
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link:focus-visible { opacity: 1; transform: translateX(8px); }
+
+.mobile-menu__index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--accent-primary);
+}
+
+.mobile-menu__cta {
+  align-self: stretch;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------
+   9. BUTTONS (Magnetic Buttons)
+   Trigger: mousemove within bounding box (JS) -> transform translate
+   Duration: --dur-fast | Easing: --ease-magnetic
+   Purpose: buttons feel physically responsive, reinforcing the
+   "precision engineering" brand attribute
+   --------------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  border-radius: 999px;
+  overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-magnetic), background var(--dur-base) var(--ease-liquid), border-color var(--dur-base) var(--ease-liquid);
+  will-change: transform;
+}
+
+.btn span { position: relative; z-index: 1; }
+
+.btn--primary {
+  background: var(--accent-primary);
+  color: var(--carbon-black);
+}
+
+.btn--primary:hover { background: var(--burning-copper-lt); }
+
+.btn--outline {
+  border: 1px solid var(--border-hairline-lt);
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.btn--outline:hover { border-color: var(--accent-secondary); background: rgba(79, 224, 212, 0.06); }
+
+.btn--ghost-sm {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--fs-small);
+  border: 1px solid var(--border-hairline-lt);
+}
+
+.btn--ghost-sm:hover { border-color: var(--accent-primary); }
+
+.btn--lg { padding: var(--space-md) var(--space-2xl); font-size: var(--fs-body-lg); }
+
+/* ---------------------------------------------------------------
+   10. HERO
+   --------------------------------------------------------------- */
+.hero {
+  position: relative;
+  /* min-height, not a fixed height: on short/narrow phones a 5-line
+     headline plus eyebrow, subtitle and two buttons can genuinely be
+     taller than 100svh. With a fixed height + overflow:hidden the
+     surplus content pushed upward past the top edge, up under the
+     fixed .nav bar — which only has a soft gradient background, not
+     a solid one — so the logo and the headline's first line visually
+     merged into one smear ("текст сливается"). Letting the section
+     grow with its content (min-height, no overflow clip) means the
+     text simply continues onto more vertical space instead of
+     colliding with the header. */
+  min-height: var(--vh-full);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* Reserves room for the fixed nav so hero content can never start
+     underneath it, regardless of how tall the headline ends up being. */
+  padding:
+    calc(var(--nav-height) + var(--safe-top) + var(--space-lg))
+    calc(var(--container-pad) + var(--safe-right))
+    var(--space-2xl)
+    calc(var(--container-pad) + var(--safe-left));
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  /* Motion Blur: subtle scale-in mimics a lens easing into focus */
+  animation: hero-focus-in 2.4s var(--ease-atelier) both;
+}
+
+@keyframes hero-focus-in {
+  from { transform: scale(1.08); filter: blur(6px) brightness(0.7); }
+  to   { transform: scale(1); filter: blur(0) brightness(1); }
+}
+
+.hero__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, var(--carbon-black) 5%, rgba(10,11,13,0.55) 45%, rgba(10,11,13,0.15) 100%),
+    linear-gradient(to right, rgba(10,11,13,0.5), transparent 60%);
+}
+
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Ambient architectural grid lines — Depth Parallax target (JS) */
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--container-pad);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__grid span {
+  width: 1px;
+  height: 100%;
+  background: var(--border-hairline);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.hero__eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-secondary);
+  box-shadow: 0 0 12px var(--accent-secondary);
+}
+
+.hero__title {
+  font-size: var(--fs-display-xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  /* Opaque halo behind the glyphs: on slower devices the hero video
+     is still compositing while the title reveal is mid-transition,
+     which let the moving background show through the letterforms as
+     a smeared double-exposure ("текст сливается"). The shadow stack
+     keeps the headline crisp regardless of what's animating behind it. */
+  text-shadow:
+    0 1px 0 var(--carbon-black),
+    0 2px 16px rgba(10, 11, 13, 0.7);
+}
+
+.hero__title-line {
+  padding-bottom: 0.08em;
+  /* Pre-hidden the instant CSS loads (not only via the shared
+     [data-reveal] rule) so there is never a frame where the line
+     sits half-transformed while fonts/video are still settling. */
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.hero__title-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__subtitle {
+  font-size: var(--fs-body-lg);
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin-bottom: var(--space-lg);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  bottom: calc(var(--space-lg) + var(--safe-bottom));
+  right: calc(var(--container-pad) + var(--safe-right));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.hero__scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--brushed-titanium));
+  animation: scroll-cue-pulse 2.2s var(--ease-velocity) infinite;
+}
+
+@keyframes scroll-cue-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.hero__scroll-label {
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+}
+/* ---------------------------------------------------------------
+   11. PHILOSOPHY
+   --------------------------------------------------------------- */
+.philosophy { background: var(--bg-base); }
+
+.philosophy__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border-hairline);
+  border: 1px solid var(--border-hairline);
+}
+
+.philosophy__card {
+  background: var(--bg-base);
+  padding: var(--space-lg) var(--space-md);
+  transition: background var(--dur-base) var(--ease-liquid);
+}
+
+.philosophy__card:hover { background: var(--bg-raised); }
+
+.philosophy__num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--accent-primary);
+  margin-bottom: var(--space-md);
+  opacity: 0;
+  transform: translateY(14px) scale(0.85);
+  transition:
+    opacity var(--dur-base) var(--ease-atelier),
+    transform var(--dur-base) var(--ease-magnetic);
+  transition-delay: 120ms;
+}
+
+/* Fires once the parent card enters the viewport (card itself carries
+   [data-reveal], whose .is-visible class we key off here) — the
+   number "prints in" a beat after the card starts rising. */
+.philosophy__card.is-visible .philosophy__num {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.philosophy__card h3 {
+  font-size: var(--fs-heading);
+  margin-bottom: var(--space-xs);
+  /* Same rise-and-fade language as the number above it, staged to
+     land a beat later — the heading "types in" right after the
+     index number instead of appearing together with the card. */
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-base) var(--ease-atelier),
+    transform var(--dur-base) var(--ease-atelier);
+  transition-delay: 220ms;
+}
+
+.philosophy__card.is-visible h3 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.philosophy__card p {
+  color: var(--text-secondary);
+  max-width: 42ch;
+  /* Last in the sequence: number, then heading, then body copy —
+     reads like the point is being explained one beat at a time
+     rather than dumped on screen all at once. */
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-base) var(--ease-atelier),
+    transform var(--dur-base) var(--ease-atelier);
+  transition-delay: 320ms;
+}
+
+.philosophy__card.is-visible p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------
+   12. COLLECTION — Moto Cards (Light Sweep + Liquid Hover)
+   Trigger: :hover / touch on .moto-card__stage
+   Duration: --dur-slow | Easing: --ease-liquid
+   Purpose: a diagonal light sweep crosses the motorcycle image,
+   specs float in like an engineering read-out, and the image
+   scales fractionally — evokes a photo-studio turntable reveal
+   --------------------------------------------------------------- */
+.collection { background: var(--bg-raised); }
+
+.collection__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.moto-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.moto-card__stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.moto-card__image {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-liquid), filter var(--dur-slow) var(--ease-liquid);
+}
+
+.moto-card__sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(115deg, transparent 40%, rgba(244,245,246,0.16) 50%, transparent 60%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.moto-card:hover .moto-card__sweep,
+.moto-card:focus-within .moto-card__sweep {
+  animation: light-sweep var(--dur-slow) var(--ease-liquid) forwards;
+}
+
+@keyframes light-sweep {
+  to { transform: translateX(120%); }
+}
+
+.moto-card:hover .moto-card__image,
+.moto-card:focus-within .moto-card__image {
+  transform: scale(1.04);
+}
+
+.moto-card__specs {
+  position: absolute;
+  left: var(--space-md);
+  bottom: var(--space-md);
+  z-index: 3;
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(10, 11, 13, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline-lt);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-base) var(--ease-atelier), transform var(--dur-base) var(--ease-atelier);
+}
+
+.moto-card:hover .moto-card__specs,
+.moto-card:focus-within .moto-card__specs {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.moto-card__specs span {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+.moto-card__specs em {
+  color: var(--text-tertiary);
+  font-style: normal;
+  font-size: 0.7em;
+  margin-bottom: 2px;
+}
+
+.moto-card__specs b { color: var(--text-primary); font-weight: 500; }
+
+.moto-card__meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.moto-card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+  margin-bottom: var(--space-2xs);
+}
+
+.moto-card__title {
+  font-size: var(--fs-display-md);
+  margin-bottom: var(--space-sm);
+}
+
+.moto-card__desc {
+  color: var(--text-secondary);
+  max-width: 46ch;
+  margin-bottom: var(--space-md);
+}
+
+.moto-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--fs-small);
+  color: var(--text-primary);
+  width: fit-content;
+}
+
+.moto-card__link svg {
+  width: 18px; height: 18px;
+  transition: transform var(--dur-fast) var(--ease-magnetic);
+}
+
+.moto-card__link:hover svg { transform: translateX(4px); }
+/* ---------------------------------------------------------------
+   13. MODEL PAGE
+   --------------------------------------------------------------- */
+.model { background: var(--bg-base); }
+
+.model__gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.model__gallery-main {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--bg-card);
+}
+
+.model__gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+
+.model__gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xs);
+}
+
+.model__gallery-thumbs img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+  filter: grayscale(0.3) brightness(0.85);
+  transition: filter var(--dur-base) var(--ease-liquid);
+}
+
+.model__gallery-thumbs img:hover { filter: grayscale(0) brightness(1); }
+
+.model__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.model__block-title {
+  font-size: var(--fs-heading);
+  margin-bottom: var(--space-md);
+}
+
+.specs-list div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--fs-body);
+}
+
+.specs-list dt { color: var(--text-tertiary); }
+.specs-list dd {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.timeline li {
+  position: relative;
+  padding-left: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-left: 1px solid var(--border-hairline-lt);
+  color: var(--text-secondary);
+}
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: 4px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+}
+
+.timeline__date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-3xs);
+}
+
+.model__extras {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.accessory-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.accessory-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-sm);
+  text-align: left;
+  font-size: var(--fs-body, 1rem);
+  color: var(--text-secondary);
+}
+
+.accessory-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  margin-bottom: 0;
+  background: var(--bg-card);
+}
+
+.finance-mini {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-md);
+}
+
+.finance-mini span {
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+}
+
+.model__financing-link { color: var(--accent-secondary); font-size: var(--fs-small); }
+
+.model__cta { width: 100%; justify-content: center; }
+
+/* ---------------------------------------------------------------
+   14. PROCESS (Why Us)
+   --------------------------------------------------------------- */
+.process { background: var(--bg-raised); }
+
+.process__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.process__step-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  color: var(--accent-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.process__step h3 { font-size: var(--fs-heading); margin-bottom: var(--space-xs); }
+.process__step p { color: var(--text-secondary); max-width: 40ch; }
+
+/* ---------------------------------------------------------------
+   15. FINANCING
+   --------------------------------------------------------------- */
+.financing { background: var(--bg-base); }
+.financing__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+.finance-card {
+  position: relative;
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  transition: background var(--dur-base) var(--ease-liquid), transform var(--dur-base) var(--ease-liquid);
+}
+
+.finance-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+}
+
+.finance-card h3 { font-size: var(--fs-heading); margin-bottom: var(--space-xs); }
+.finance-card p { color: var(--text-secondary); margin-bottom: var(--space-md); }
+
+.finance-card__tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--accent-primary);
+  padding: var(--space-3xs) var(--space-xs);
+  border: 1px solid var(--border-hairline-lt);
+  border-radius: 999px;
+}
+
+/* ---------------------------------------------------------------
+   16. OWNERS CAROUSEL
+   --------------------------------------------------------------- */
+.owners { background: var(--bg-raised); overflow: hidden; }
+
+.owners__carousel { position: relative; overflow: hidden; }
+
+.owners__track {
+  position: relative;
+  width: 100%;
+}
+
+.owner-slide {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* Only the active slide should be interactive/announced; the rest
+     sit stacked underneath it, invisible, instead of laid out
+     side-by-side. This removes any dependency on flex-basis math
+     against the track's own content width, which could otherwise
+     make a slide render several times wider than the viewport. */
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--dur-slow) var(--ease-atelier);
+}
+
+.owner-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+}
+
+.owner-slide.is-active .owner-slide__quote p {
+  animation: owner-quote-in var(--dur-slow) var(--ease-atelier) both;
+}
+
+.owner-slide.is-active .owner-slide__quote span {
+  animation: owner-quote-in var(--dur-slow) var(--ease-atelier) both;
+  animation-delay: 90ms;
+}
+
+@keyframes owner-quote-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.owner-slide__image {
+  width: 100%;
+  /* 4:5 was tall enough on short phone viewports that, combined with
+     the quote below it, the card ran past the visible screen and got
+     visually cut off ("текст отзывов не вмещался в экран"). 5:4
+     keeps the portrait feel while leaving headroom for the quote. */
+  display: block;
+  height: auto;
+  border-radius: var(--radius-lg);
+  filter: grayscale(0.4);
+}
+
+.owner-slide__quote {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.owner-slide__quote p {
+  font-family: var(--font-display);
+  /* Was --fs-heading (up to 2rem) — long quotes at that size plus the
+     image above them routinely exceeded one phone screen's height.
+     --fs-body-lg scales down further on narrow viewports. */
+  font-size: var(--fs-body-lg);
+  line-height: 1.35;
+  margin-bottom: var(--space-sm);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.owner-slide__quote span {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--text-tertiary);
+}
+
+.owners__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  overflow-x: clip;
+}
+
+.owners__arrow {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-hairline-lt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--dur-fast) var(--ease-liquid), transform var(--dur-fast) var(--ease-magnetic);
+}
+
+.owners__arrow:hover { border-color: var(--accent-primary); transform: scale(1.06); }
+.owners__arrow svg { width: 18px; height: 18px; }
+
+.owners__dots { display: flex; gap: var(--space-sm); }
+
+.owners__dots button {
+  position: relative;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-hairline-lt);
+  transition: background var(--dur-fast) var(--ease-liquid), transform var(--dur-fast) var(--ease-liquid);
+}
+
+/* Invisible hit-area expansion: keeps the 8px visual dot but gives
+   touch input a 44×44 target, per WCAG 2.5.5 minimum. Centered via
+   negative inset so it doesn't affect the flex gap between dots. */
+.owners__dots button::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 44px; height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.owners__dots button.is-active {
+  background: var(--accent-primary);
+  transform: scale(1.3);
+}
+/* ---------------------------------------------------------------
+   17. SHOWROOM
+   --------------------------------------------------------------- */
+.showroom {
+  position: relative;
+  min-height: min(var(--vh-full), 90vh);
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: calc(var(--space-2xl) + var(--safe-bottom));
+  overflow: hidden;
+}
+
+.showroom__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.showroom__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.showroom__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--carbon-black) 10%, rgba(10,11,13,0.5) 55%, rgba(10,11,13,0.2) 100%);
+}
+
+.showroom__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.showroom__title {
+  font-size: var(--fs-display-lg);
+  margin: var(--space-sm) 0 var(--space-xl);
+}
+
+.showroom__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.showroom__item h3 { font-size: var(--fs-heading); margin-bottom: var(--space-2xs); }
+.showroom__item p { color: var(--text-secondary); max-width: 32ch; }
+
+/* ---------------------------------------------------------------
+   18. FAQ — Premium Accordion (Glass Morphing)
+   Trigger: click on .faq__question
+   Duration: --dur-base | Easing: --ease-atelier
+   Purpose: answer panel expands via measured max-height (JS sets
+   --answer-height from scrollHeight) for a precise, non-janky glide
+   --------------------------------------------------------------- */
+.faq { background: var(--bg-base); }
+
+.faq__list { display: flex; flex-direction: column; }
+
+.faq__item { border-bottom: 1px solid var(--border-hairline); }
+
+.faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  text-align: left;
+  font-size: var(--fs-body-lg);
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+}
+
+.faq__icon::before, .faq__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  background: var(--text-primary);
+  transition: transform var(--dur-base) var(--ease-atelier), background var(--dur-base) var(--ease-liquid);
+}
+
+.faq__icon::before { width: 14px; height: 1.5px; transform: translate(-50%, -50%); }
+.faq__icon::after { width: 1.5px; height: 14px; transform: translate(-50%, -50%); }
+
+.faq__item[aria-expanded="true"] .faq__icon::after,
+.faq__question[aria-expanded="true"] .faq__icon::after { transform: translate(-50%, -50%) rotate(90deg); background: var(--accent-primary); }
+
+.faq__answer {
+  max-height: var(--answer-height, 0px);
+  overflow: hidden;
+  transition: max-height var(--dur-base) var(--ease-atelier);
+}
+
+.faq__answer p {
+  color: var(--text-secondary);
+  padding-bottom: var(--space-md);
+  max-width: 60ch;
+}
+
+/* ---------------------------------------------------------------
+   19. CTA
+   --------------------------------------------------------------- */
+.cta {
+  position: relative;
+  background: var(--bg-raised);
+  min-height: min(var(--vh-full), 70vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding-left: calc(var(--container-pad) + var(--safe-left));
+  padding-right: calc(var(--container-pad) + var(--safe-right));
+}
+
+.cta__grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.cta__grid span {
+  width: 1px;
+  height: 100%;
+  background: radial-gradient(ellipse at center, var(--border-hairline-lt), transparent 70%);
+}
+
+.cta__content { position: relative; max-width: 780px; }
+
+.cta__title {
+  font-size: var(--fs-display-lg);
+  margin: var(--space-sm) 0 var(--space-lg);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+/* ---------------------------------------------------------------
+   20. CONTACT
+   --------------------------------------------------------------- */
+.contact { background: var(--bg-base); }
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+.contact__list > div {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.contact__list dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-3xs);
+}
+
+.contact__list dd { font-size: var(--fs-body-lg); }
+.contact__list dd a { transition: color var(--dur-fast) var(--ease-liquid); }
+.contact__list dd a:hover { color: var(--accent-primary); }
+.contact__list dd a + a { margin-left: var(--space-md); }
+
+.contact__social {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.contact__social a {
+  width: 44px; height: 44px;
+  border: 1px solid var(--border-hairline-lt);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  transition: border-color var(--dur-fast) var(--ease-liquid);
+}
+
+.contact__social a:hover { border-color: var(--accent-primary); }
+
+.contact__map {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  filter: grayscale(0.6) invert(0.92) contrast(0.85);
+}
+
+.contact__map iframe { width: 100%; height: 100%; border: 0; }
+
+/* ---------------------------------------------------------------
+   21. FOOTER
+   --------------------------------------------------------------- */
+.footer {
+  padding: var(--space-lg) var(--container-pad);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.footer__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.footer__glyph { width: 22px; height: 22px; color: var(--accent-primary); }
+
+.footer__note { font-size: var(--fs-small); color: var(--text-tertiary); }
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.footer__links a:hover { color: var(--text-primary); }
+
+/* ================================================================
+   23. BREAKPOINTS — Mobile First
+   320 (base) → 375 → 768 → 1024 → 1440 → 1920
+   ================================================================ */
+
+/* --- 375px: minor breathing room --- */
+@media (min-width: 375px) {
+  .hero__actions { flex-wrap: nowrap; }
+}
+
+/* ---------------------------------------------------------------
+   MOBILE LANDSCAPE (phones only, not tablets/desktop)
+   Trigger: orientation:landscape + max-height:500px — this combo
+   only fires on phone-class devices rotated sideways (e.g. an
+   iPhone at 844×390 or a Galaxy S at 800×360). A landscape iPad
+   (1024×768) or laptop never matches max-height:500px, so their
+   layout is untouched.
+   Purpose: 100svh/100vh full-bleed sections become unreadable when
+   height collapses to ~360–430px — hero text can run off-screen
+   and the mobile menu can't fit all 8 links. This block relaxes
+   min-height to actual content height and tightens vertical
+   rhythm so nothing gets clipped or forces awkward scroll-jumps.
+   --------------------------------------------------------------- */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--space-2xl) + var(--safe-top));
+    padding-bottom: calc(var(--space-lg) + var(--safe-bottom));
+  }
+
+  .hero__title { font-size: var(--fs-display-lg); }
+  .hero__subtitle { margin-bottom: var(--space-md); }
+  .hero__scroll-cue { display: none; } /* no room; scroll affordance isn't worth the clip risk */
+
+  .showroom { min-height: auto; padding-top: var(--space-xl); }
+  .cta { min-height: auto; padding-top: var(--space-xl); padding-bottom: var(--space-xl); }
+
+  /* Mobile menu already fits without scrolling via the compact
+     clamp()-based sizing in the base rules — no landscape override
+     needed here anymore. */
+
+  section { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+}
+
+/* --- 768px: tablet — two-column grids begin --- */
+@media (min-width: 768px) {
+  .nav__links { display: flex; }
+  .nav__cta { display: inline-flex; }
+  .nav__burger { display: none; }
+  .mobile-menu { display: none; }
+
+  .philosophy__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .moto-card { grid-template-columns: 1.3fr 1fr; align-items: center; }
+  .moto-card--reverse { direction: rtl; }
+  .moto-card--reverse > * { direction: ltr; }
+
+  .model__gallery { grid-template-columns: 2fr 1fr; }
+  .model__gallery-thumbs { grid-template-columns: repeat(2, 1fr); }
+  .model__body { grid-template-columns: 1fr 1fr; }
+  .model__extras { grid-template-columns: 1fr 1fr; }
+
+  .process__grid { grid-template-columns: repeat(2, 1fr); }
+  .financing__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .owner-slide { flex-direction: row; align-items: center; }
+  .owner-slide__image { height: auto; flex: 0 0 45%; }
+  .owner-slide__quote { flex: 1 1 auto; min-width: 0; }
+  .owner-slide__quote p { font-size: var(--fs-heading); line-height: 1.2; }
+
+  .showroom__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .contact__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------------------------------------------------------------
+   900px: large tablets (iPad Pro portrait, Android tablets)
+   Sits between the 768px "compact tablet" breakpoint and the
+   1024px "desktop" one. Without this step, an iPad Mini (768px)
+   and an iPad Pro in portrait (1024px) render an identical
+   2-column grid despite the Pro having ~35% more width to work
+   with — this recovers that density gain before desktop kicks in.
+   --------------------------------------------------------------- */
+@media (min-width: 900px) {
+  .process__grid { grid-template-columns: repeat(3, 1fr); }
+  .financing__grid { grid-template-columns: repeat(3, 1fr); }
+  .showroom__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* --- 1024px: desktop — three/four column density --- */
+@media (min-width: 1024px) {
+  .financing__grid { grid-template-columns: repeat(4, 1fr); }
+  .showroom__grid { grid-template-columns: repeat(4, 1fr); }
+  .accessory-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .hero__scroll-cue { bottom: var(--space-xl); }
+}
+
+/* --- 1440px: large desktop — generous whitespace per brief --- */
+@media (min-width: 1440px) {
+  :root { --container-pad: 5rem; }
+
+  .moto-card { gap: var(--space-2xl); }
+  .collection__list { gap: var(--space-3xl); }
+}
+
+/* --- 1920px: ultra-wide — cap visual density, widen gutters --- */
+@media (min-width: 1920px) {
+  :root { --container-max: 1600px; }
+}
+
+/* ---------------------------------------------------------------
+   ULTRA-NARROW SAFETY NET (folded foldables, very small phones,
+   or any device with OS text-scaling pushed high)
+   Trigger: max-width:340px — catches viewports below the smallest
+   "normal" phone (iPhone SE is 375px; this is for outliers like a
+   folded Galaxy Z Fold's cover screen or a scaled-up accessibility
+   font size effectively shrinking available inline space).
+   Purpose: tightens gutters and clamps line-length further so
+   nothing forces horizontal scroll or text overflow at the extreme.
+   --------------------------------------------------------------- */
+@media (max-width: 340px) {
+  :root { --container-pad: 1rem; }
+
+  .hero__title { font-size: var(--fs-display-md); }
+  .moto-card__specs { flex-direction: column; gap: var(--space-xs); }
+  .model__gallery-thumbs { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------------------------------------------------------------
+   24. PRINT (basic courtesy reset)
+   --------------------------------------------------------------- */
+@media print {
+  .nav, .mobile-menu, .preloader, .hero__scroll-cue { display: none; }
+  body { background: #fff; color: #000; }
+}

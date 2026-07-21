@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- ============ SEO META ============ -->
+<title>Velocity Atelier — мотосалон для тех, кто выбирает характер</title>
+<meta name="description" content="Velocity Atelier — не витрина мотоциклов, а мастерская свободы. Коллекция, подготовленная до последнего болта. Тест-райд, трейд-ин, полное сопровождение владельца.">
+<meta name="keywords" content="премиальный мотосалон, мотоциклы, тест-райд, трейд-ин мотоцикл, подготовка мотоцикла, мотобутик">
+<meta name="author" content="Velocity Atelier">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://velocityatelier.example/">
+
+<!-- ============ Open Graph ============ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Velocity Atelier — мотосалон для тех, кто выбирает характер">
+<meta property="og:description" content="Коллекция мотоциклов, подготовленных до последнего болта. Свобода начинается там, где заканчиваются компромиссы.">
+<meta property="og:image" content="https://velocityatelier.example/assets/og-cover.jpg">
+<meta property="og:url" content="https://velocityatelier.example/">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Velocity Atelier">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Velocity Atelier">
+<meta name="twitter:description" content="Свобода начинается там, где заканчиваются компромиссы.">
+<meta name="twitter:image" content="https://velocityatelier.example/assets/og-cover.jpg">
+
+<meta name="theme-color" content="#0A0B0D">
+
+<!-- ============ Preconnect / Preload ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=General+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<link rel="preload" as="image" href="img/1.png" fetchpriority="high">
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="MotoSalon.css">
+
+<!-- ============ Schema.org: MotorcycleDealer ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MotorcycleDealer",
+  "name": "Velocity Atelier",
+  "description": "Мотоателье полного цикла: подбор, подготовка, сертификация и сопровождение владельцев премиальных мотоциклов.",
+  "image": "https://velocityatelier.example/assets/og-cover.jpg",
+  "url": "https://velocityatelier.example/",
+  "telephone": "+7-800-555-01-01",
+  "priceRange": "₽₽₽₽",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ленинградское шоссе, 16",
+    "addressLocality": "Москва",
+    "postalCode": "125171",
+    "addressCountry": "RU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 55.8180,
+    "longitude": 37.4880
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "10:00",
+      "closes": "21:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday","Sunday"],
+      "opens": "11:00",
+      "closes": "19:00"
+    }
+  ],
+  "sameAs": [
+    "https://t.me/velocityatelier",
+    "https://wa.me/78005550101"
+  ]
+}
+</script>
+
+<!-- ============ Schema.org: LocalBusiness ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Velocity Atelier",
+  "image": "https://velocityatelier.example/assets/showroom.jpg",
+  "telephone": "+7-800-555-01-01",
+  "email": "atelier@velocityatelier.example",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ленинградское шоссе, 16",
+    "addressLocality": "Москва",
+    "postalCode": "125171",
+    "addressCountry": "RU"
+  }
+}
+</script>
+
+<!-- ============ Schema.org: FAQPage ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Сколько времени занимает подготовка мотоцикла перед передачей владельцу?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Полный цикл диагностики, сертификации и подготовки занимает от 5 до 12 рабочих дней в зависимости от модели и истории обслуживания."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли записаться на тест-райд без предварительной покупки?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Тест-райд доступен по записи и не обязывает к покупке — это часть знакомства с характером мотоцикла."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Работаете ли вы с trade-in предыдущего мотоцикла?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, мы проводим независимую оценку и зачитываем стоимость вашего мотоцикла в счёт новой покупки."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какие финансовые программы доступны?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Кредит, лизинг для юридических лиц, trade-in и расширенное страхование — каждая программа рассчитывается индивидуально под модель."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что входит в предпродажную инспекцию?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Более 120 пунктов проверки: от компрессии двигателя и состояния подвески до юридической чистоты и истории пробега."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ============ Schema.org: BreadcrumbList ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://velocityatelier.example/" },
+    { "@type": "ListItem", "position": 2, "name": "Коллекция", "item": "https://velocityatelier.example/#collection" },
+    { "@type": "ListItem", "position": 3, "name": "Шоурум", "item": "https://velocityatelier.example/#showroom" }
+  ]
+}
+</script>
+</head>
+
+<body>
+
+<!-- ============================================================ -->
+<!-- PRELOADER -->
+<!-- ============================================================ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__mark">
+    <svg viewBox="0 0 48 48" class="preloader__glyph"><path d="M4 24 L20 24 L26 12 L32 36 L38 24 L44 24" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
+  <div class="preloader__bar"><span class="preloader__fill"></span></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- NAV -->
+<!-- ============================================================ -->
+<header class="nav" id="nav" data-nav>
+  <div class="nav__inner">
+    <a href="#top" class="nav__logo" aria-label="Velocity Atelier — на главную">
+      <svg viewBox="0 0 48 48" class="nav__glyph" aria-hidden="true"><path d="M4 24 L20 24 L26 12 L32 36 L38 24 L44 24" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Velocity Atelier</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Основная навигация">
+      <a href="#philosophy" class="nav__link"><span>Философия</span></a>
+      <a href="#collection" class="nav__link"><span>Коллекция</span></a>
+      <a href="#process" class="nav__link"><span>Процесс</span></a>
+      <a href="#financing" class="nav__link"><span>Финансы</span></a>
+      <a href="#showroom" class="nav__link"><span>Шоурум</span></a>
+      <a href="#contact" class="nav__link"><span>Контакты</span></a>
+    </nav>
+
+    <a href="#contact" class="nav__cta btn btn--ghost-sm">
+      <span>Тест-райд</span>
+    </a>
+
+    <button class="nav__burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu placed at body level — avoids stacking-context trap under header -->
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+  <nav class="mobile-menu__links" aria-label="Мобильная навигация">
+    <a href="#philosophy" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">01</span>Философия</a>
+    <a href="#collection" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">02</span>Коллекция</a>
+    <a href="#process" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">03</span>Процесс</a>
+    <a href="#financing" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">04</span>Финансы</a>
+    <a href="#owners" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">05</span>Владельцы</a>
+    <a href="#showroom" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">06</span>Шоурум</a>
+    <a href="#faq" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">07</span>FAQ</a>
+    <a href="#contact" class="mobile-menu__link" data-menu-link><span class="mobile-menu__index">08</span>Контакты</a>
+  </nav>
+  <a href="#contact" class="mobile-menu__cta btn btn--primary" data-menu-link>Записаться на тест-райд</a>
+</div>
+
+<main id="top">
+
+<!-- ============================================================ -->
+<!-- HERO -->
+<!-- ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero__media">
+    <video class="hero__video" autoplay muted loop playsinline poster="img/1.png" aria-hidden="true">
+      <source src="assets/hero-loop.webm" type="video/webm">
+      <source src="assets/hero-loop.mp4" type="video/mp4">
+    </video>
+    <div class="hero__gradient"></div>
+    <div class="hero__grain" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__grid" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow" data-reveal="fade-up">
+      <span class="hero__eyebrow-dot"></span>Мотоателье полного цикла
+    </p>
+
+    <h1 class="hero__title">
+      <span class="hero__title-line" data-reveal="line">Свобода начинается там,</span>
+      <span class="hero__title-line" data-reveal="line">где заканчиваются <em>компромиссы</em>.</span>
+    </h1>
+
+    <p class="hero__subtitle" data-reveal="fade-up">
+      Коллекция мотоциклов для тех, кто выбирает не транспорт, а характер.
+    </p>
+
+    <div class="hero__actions" data-reveal="fade-up">
+      <a href="#collection" class="btn btn--primary">
+        <span>Смотреть коллекцию</span>
+      </a>
+      <a href="#contact" class="btn btn--outline">
+        <span>Записаться на тест-райд</span>
+      </a>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- ============================================================ -->
+<!-- PHILOSOPHY -->
+<!-- ============================================================ -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy__inner">
+
+    <div class="section-head" data-reveal="fade-up">
+      <span class="section-head__index">01 — Философия</span>
+      <h2 class="section-head__title">Мы не продаём мотоциклы.<br>Мы готовим их к встрече с вами.</h2>
+    </div>
+
+    <div class="philosophy__grid">
+      <article class="philosophy__card" data-reveal="fade-up" data-reveal-delay="0">
+        <span class="philosophy__num">01</span>
+        <h3>Отбор, а не закупка</h3>
+        <p>Каждая модель попадает в коллекцию не по прайс-листу, а по инженерной репутации. Мы отклоняем больше, чем принимаем.</p>
+      </article>
+
+      <article class="philosophy__card" data-reveal="fade-up" data-reveal-delay="120">
+        <span class="philosophy__num">02</span>
+        <h3>Подготовка до последнего болта</h3>
+        <p>120 пунктов диагностики. Компрессия, электроника, подвеска, юридическая чистота — прежде чем мотоцикл коснётся витрины.</p>
+      </article>
+
+      <article class="philosophy__card" data-reveal="fade-up" data-reveal-delay="240">
+        <span class="philosophy__num">03</span>
+        <h3>Инспекция как ритуал</h3>
+        <p>Финальная проверка проводится в присутствии мастера, а не по чек-листу на бумаге. Каждая деталь объясняется, а не просто отмечается.</p>
+      </article>
+
+      <article class="philosophy__card" data-reveal="fade-up" data-reveal-delay="360">
+        <span class="philosophy__num">04</span>
+        <h3>Сопровождение после ключей</h3>
+        <p>Передача мотоцикла — это начало отношений, а не завершение сделки. История обслуживания остаётся открытой книгой.</p>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- COLLECTION -->
+<!-- ============================================================ -->
+<section class="collection" id="collection">
+  <div class="section-head section-head--wide" data-reveal="fade-up">
+    <span class="section-head__index">02 — Коллекция</span>
+    <h2 class="section-head__title">Каждый мотоцикл здесь — <br><em>завершённая инженерная мысль.</em></h2>
+  </div>
+
+  <div class="collection__list" id="collection-list">
+
+    <!-- ITEM 1 -->
+    <article class="moto-card" data-reveal="fade-up" data-moto-card>
+      <div class="moto-card__stage">
+        <div class="moto-card__sweep" aria-hidden="true"></div>
+        <img class="moto-card__image" src="img/2.png" alt="Мотоцикл Obsidian GT на тёмном фоне студии" loading="lazy" width="1200" height="800">
+        <div class="moto-card__specs" data-specs>
+          <span><em>Мощность</em>178 <b>л.с.</b></span>
+          <span><em>Разгон 0–100</em>2.9 <b>сек</b></span>
+          <span><em>Масса</em>198 <b>кг</b></span>
+        </div>
+      </div>
+      <div class="moto-card__meta">
+        <div class="moto-card__heading">
+          <span class="moto-card__eyebrow">Спортивный характер</span>
+          <h3 class="moto-card__title">Obsidian GT</h3>
+        </div>
+        <p class="moto-card__desc">Карбоновый обвес и алюминиевая рама сведены в одну линию — без единого лишнего элемента.</p>
+        <a href="#model-copperline" class="moto-card__link">
+          <span>Открыть карточку</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- ITEM 2 -->
+    <article class="moto-card moto-card--reverse" data-reveal="fade-up" data-moto-card>
+      <div class="moto-card__stage">
+        <div class="moto-card__sweep" aria-hidden="true"></div>
+        <img class="moto-card__image" src="img/3.png" alt="Мотоцикл Copperline Roadster в студийном свете" loading="lazy" width="1200" height="800">
+        <div class="moto-card__specs" data-specs>
+          <span><em>Мощность</em>112 <b>л.с.</b></span>
+          <span><em>Крутящий момент</em>115 <b>Нм</b></span>
+          <span><em>Объём бака</em>18 <b>л</b></span>
+        </div>
+      </div>
+      <div class="moto-card__meta">
+        <div class="moto-card__heading">
+          <span class="moto-card__eyebrow">Дальние дороги</span>
+          <h3 class="moto-card__title">Copperline Roadster</h3>
+        </div>
+        <p class="moto-card__desc">Медный акцент на титановом баке — единственная деталь, которая напоминает о скорости, пока вы стоите на месте.</p>
+        <a href="#model-copperline" class="moto-card__link">
+          <span>Открыть карточку</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- ITEM 3 -->
+    <article class="moto-card" data-reveal="fade-up" data-moto-card>
+      <div class="moto-card__stage">
+        <div class="moto-card__sweep" aria-hidden="true"></div>
+        <img class="moto-card__image" src="img/4.png" alt="Мотоцикл Slate Cafe Racer с матовым корпусом" loading="lazy" width="1200" height="800">
+        <div class="moto-card__specs" data-specs>
+          <span><em>Мощность</em>95 <b>л.с.</b></span>
+          <span><em>Масса</em>176 <b>кг</b></span>
+          <span><em>Клиренс</em>135 <b>мм</b></span>
+        </div>
+      </div>
+      <div class="moto-card__meta">
+        <div class="moto-card__heading">
+          <span class="moto-card__eyebrow">Городской минимализм</span>
+          <h3 class="moto-card__title">Slate Cafe Racer</h3>
+        </div>
+        <p class="moto-card__desc">Графитовый матовый корпус поглощает свет так же, как поглощает внимание на светофоре.</p>
+        <a href="#model-slate" class="moto-card__link">
+          <span>Открыть карточку</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODEL PAGE (пример карточки мотоцикла — секция-якорь) -->
+<!-- ============================================================ -->
+<section class="model" id="model-obsidian">
+  <div class="model__inner">
+
+    <div class="section-head" data-reveal="fade-up">
+      <span class="section-head__index">03 — Карточка мотоцикла</span>
+      <h2 class="section-head__title">Obsidian GT</h2>
+    </div>
+
+    <div class="model__gallery" data-reveal="fade-up">
+      <div class="model__gallery-main">
+        <img src="img/5.png" alt="Obsidian GT, вид сбоку в студийном свете" loading="lazy" width="1600" height="1000">
+      </div>
+      <div class="model__gallery-thumbs">
+        <img src="img/6.png" alt="Деталь карбонового обвеса Obsidian GT" loading="lazy" width="800" height="400">
+        <img src="img/9.png" alt="мотоцикл Obsidian GT" loading="lazy" width="800" height="400">
+      </div>
+    </div>
+
+    <div class="model__body">
+      <div class="model__specs-table" data-reveal="fade-up">
+        <h3 class="model__block-title">Характеристики</h3>
+        <dl class="specs-list">
+          <div><dt>Двигатель</dt><dd>V4, 998 см³</dd></div>
+          <div><dt>Мощность</dt><dd>178 л.с. при 13 000 об/мин</dd></div>
+          <div><dt>Крутящий момент</dt><dd>108 Нм при 9 500 об/мин</dd></div>
+          <div><dt>Масса сухая</dt><dd>198 кг</dd></div>
+          <div><dt>Разгон 0–100</dt><dd>2.9 сек</dd></div>
+          <div><dt>Максимальная скорость</dt><dd>299 км/ч</dd></div>
+        </dl>
+      </div>
+
+      <div class="model__history" data-reveal="fade-up">
+        <h3 class="model__block-title">История обслуживания</h3>
+        <ul class="timeline">
+          <li><span class="timeline__date">Март 2026</span>Полная диагностика на 120 пунктов, замена расходных материалов</li>
+          <li><span class="timeline__date">Февраль 2026</span>Юридическая проверка, сверка VIN, снятие с учёта прежним владельцем</li>
+          <li><span class="timeline__date">Январь 2026</span>Поступление в атлье, входная дефектовка</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="model__extras">
+      <div class="model__accessories" data-reveal="fade-up">
+        <h3 class="model__block-title">Дополнительные аксессуары</h3>
+        <div class="accessory-grid">
+          <div class="accessory-item"><img src="img/10.png" alt="Шлем карбоновый" loading="lazy" width="300" height="300"><span>Шлем, карбон</span></div>
+          <div class="accessory-item"><img src="img/11.png" alt="Куртка кожаная" loading="lazy" width="300" height="300"><span>Куртка, кожа</span></div>
+          <div class="accessory-item"><img src="img/12.png" alt="Перчатки гоночные" loading="lazy" width="300" height="300"><span>Перчатки</span></div>
+          <div class="accessory-item"><img src="img/13.png" alt="Чехол для мотоцикла" loading="lazy" width="300" height="300"><span>Чехол, тканевый</span></div>
+        </div>
+      </div>
+
+      <div class="model__financing" data-reveal="fade-up">
+        <h3 class="model__block-title">Финансовые программы</h3>
+        <div class="finance-mini">
+          <span>Кредит от 4.9%</span>
+          <span>Лизинг для юрлиц</span>
+          <span>Trade-in вашего мотоцикла</span>
+        </div>
+        <a href="#financing" class="model__financing-link">Подробнее о программах →</a>
+      </div>
+    </div>
+
+    <a href="#contact" class="btn btn--primary model__cta">Записаться на тест-райд Obsidian GT</a>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHY US -->
+<!-- ============================================================ -->
+<section class="process" id="process">
+  <div class="section-head" data-reveal="fade-up">
+    <span class="section-head__index">04 — Почему владельцы выбирают нас</span>
+    <h2 class="section-head__title">Не обещания. <br><em>Процессы, которые можно проверить.</em></h2>
+  </div>
+
+  <div class="process__grid">
+    <article class="process__step" data-reveal="fade-up" data-reveal-delay="0">
+      <span class="process__step-num">01</span>
+      <h3>Диагностика</h3>
+      <p>Компьютерная и механическая проверка каждого узла перед тем, как модель попадает в коллекцию.</p>
+    </article>
+    <article class="process__step" data-reveal="fade-up" data-reveal-delay="90">
+      <span class="process__step-num">02</span>
+      <h3>История обслуживания</h3>
+      <p>Полный цифровой журнал — от даты выпуска до последней замены масла — доступен владельцу в любой момент.</p>
+    </article>
+    <article class="process__step" data-reveal="fade-up" data-reveal-delay="180">
+      <span class="process__step-num">03</span>
+      <h3>Юридическая проверка</h3>
+      <p>Сверка VIN, снятие обременений, проверка истории регистрации — до подписания договора, а не после.</p>
+    </article>
+    <article class="process__step" data-reveal="fade-up" data-reveal-delay="270">
+      <span class="process__step-num">04</span>
+      <h3>Подготовка</h3>
+      <p>Каждый мотоцикл проходит через мастера лично, а не через конвейер подготовки к продаже.</p>
+    </article>
+    <article class="process__step" data-reveal="fade-up" data-reveal-delay="360">
+      <span class="process__step-num">05</span>
+      <h3>Сертификация</h3>
+      <p>Итоговый акт с фотофиксацией состояния — документ, а не формальность.</p>
+    </article>
+    <article class="process__step" data-reveal="fade-up" data-reveal-delay="450">
+      <span class="process__step-num">06</span>
+      <h3>Помощь после покупки</h3>
+      <p>Персональный куратор остаётся на связи весь первый год владения.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FINANCING -->
+<!-- ============================================================ -->
+<section class="financing" id="financing">
+  <div class="section-head" data-reveal="fade-up">
+    <span class="section-head__index">05 — Финансовые решения</span>
+    <h2 class="section-head__title">Владение начинается<br>с правильной структуры сделки.</h2>
+  </div>
+
+  <div class="financing__grid">
+    <article class="finance-card" data-reveal="fade-up" data-reveal-delay="0">
+      <h3>Кредит</h3>
+      <p>Индивидуальная ставка от банка-партнёра, решение — в день обращения.</p>
+      <span class="finance-card__tag">от 4.9%</span>
+    </article>
+    <article class="finance-card" data-reveal="fade-up" data-reveal-delay="100">
+      <h3>Лизинг</h3>
+      <p>Для юридических лиц и индивидуальных предпринимателей — с полным сопровождением документов.</p>
+      <span class="finance-card__tag">для бизнеса</span>
+    </article>
+    <article class="finance-card" data-reveal="fade-up" data-reveal-delay="200">
+      <h3>Trade-In</h3>
+      <p>Независимая оценка вашего текущего мотоцикла — зачитывается в стоимость новой покупки день в день.</p>
+      <span class="finance-card__tag">без потери времени</span>
+    </article>
+    <article class="finance-card" data-reveal="fade-up" data-reveal-delay="300">
+      <h3>Страхование</h3>
+      <p>Расширенное КАСКО с учётом индивидуальной комплектации и стоимости аксессуаров.</p>
+      <span class="finance-card__tag">полное покрытие</span>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- OWNERS -->
+<!-- ============================================================ -->
+<section class="owners" id="owners">
+  <div class="section-head" data-reveal="fade-up">
+    <span class="section-head__index">06 — Владельцы</span>
+    <h2 class="section-head__title">Их истории говорят <br><em>больше, чем наши слова.</em></h2>
+  </div>
+
+  <div class="owners__carousel" id="owners-carousel" data-carousel>
+    <div class="owners__track" data-carousel-track>
+      <article class="owner-slide" data-carousel-slide>
+        <img class="owner-slide__image" src="img/14.png" alt="Владелец Obsidian GT на фоне горной дороги" loading="lazy" width="900" height="1100">
+        <div class="owner-slide__quote">
+          <p>«Взял на тест-райд на сорок минут. Забрал через неделю — уже свой».</p>
+          <span>Дмитрий К. — Obsidian GT, 2026</span>
+        </div>
+      </article>
+      <article class="owner-slide" data-carousel-slide>
+        <img class="owner-slide__image" src="img/15.png" alt="Владелица Copperline Roadster в путешествии" loading="lazy" width="900" height="1100">
+        <div class="owner-slide__quote">
+          <p>«История обслуживания оказалась длиннее, чем у автомобиля, который я продал».</p>
+          <span>Алина В. — Copperline Roadster, 2025</span>
+        </div>
+      </article>
+      <article class="owner-slide" data-carousel-slide>
+        <img class="owner-slide__image" src="img/16.png" alt="Владелец Slate Cafe Racer в городе" loading="lazy" width="900" height="1100">
+        <div class="owner-slide__quote">
+          <p>«Мне не продавали мотоцикл. Мне объясняли, почему он мне подходит».</p>
+          <span>Роман С. — Slate Cafe Racer, 2025</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="owners__controls">
+      <button class="owners__arrow" data-carousel-prev aria-label="Предыдущий слайд">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="owners__dots" data-carousel-dots></div>
+      <button class="owners__arrow" data-carousel-next aria-label="Следующий слайд">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SHOWROOM -->
+<!-- ============================================================ -->
+<section class="showroom" id="showroom">
+  <div class="showroom__media">
+    <img src="img/17.png" alt="Интерьер шоурума Velocity Atelier — лаунж-зона и мотоциклы" loading="lazy" width="1920" height="1080">
+    <div class="showroom__gradient"></div>
+  </div>
+
+  <div class="showroom__content">
+    <span class="section-head__index section-head__index--light">07 — Шоурум</span>
+    <h2 class="showroom__title">Пространство,<br>где мотоцикл — <em>не товар</em>.</h2>
+
+    <div class="showroom__grid">
+      <div class="showroom__item" data-reveal="fade-up" data-reveal-delay="0">
+        <h3>Лаунж</h3>
+        <p>Место для разговора, а не для ожидания менеджера.</p>
+      </div>
+      <div class="showroom__item" data-reveal="fade-up" data-reveal-delay="90">
+        <h3>Бар</h3>
+        <p>Кофе и напитки — часть визита, а не формальность.</p>
+      </div>
+      <div class="showroom__item" data-reveal="fade-up" data-reveal-delay="180">
+        <h3>Кастом-зона</h3>
+        <p>Мастерская, где мотоцикл дорабатывается под характер владельца.</p>
+      </div>
+      <div class="showroom__item" data-reveal="fade-up" data-reveal-delay="270">
+        <h3>Бутик экипировки</h3>
+        <p>Шлемы, куртки и аксессуары, подобранные так же тщательно, как техника.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FAQ -->
+<!-- ============================================================ -->
+<section class="faq" id="faq">
+  <div class="section-head" data-reveal="fade-up">
+    <span class="section-head__index">08 — Вопросы</span>
+    <h2 class="section-head__title">Прежде чем спросить —<br>мы уже подумали об этом.</h2>
+  </div>
+
+  <div class="faq__list" id="faq-list">
+    <div class="faq__item" data-faq-item>
+      <button class="faq__question" data-faq-trigger aria-expanded="false">
+        <span>Сколько времени занимает подготовка мотоцикла перед передачей владельцу?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__answer" data-faq-answer>
+        <p>Полный цикл диагностики, сертификации и подготовки занимает от 5 до 12 рабочих дней в зависимости от модели и истории обслуживания.</p>
+      </div>
+    </div>
+
+    <div class="faq__item" data-faq-item>
+      <button class="faq__question" data-faq-trigger aria-expanded="false">
+        <span>Можно ли записаться на тест-райд без предварительной покупки?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__answer" data-faq-answer>
+        <p>Да. Тест-райд доступен по записи и не обязывает к покупке — это часть знакомства с характером мотоцикла.</p>
+      </div>
+    </div>
+
+    <div class="faq__item" data-faq-item>
+      <button class="faq__question" data-faq-trigger aria-expanded="false">
+        <span>Работаете ли вы с trade-in предыдущего мотоцикла?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__answer" data-faq-answer>
+        <p>Да, мы проводим независимую оценку и зачитываем стоимость вашего мотоцикла в счёт новой покупки.</p>
+      </div>
+    </div>
+
+    <div class="faq__item" data-faq-item>
+      <button class="faq__question" data-faq-trigger aria-expanded="false">
+        <span>Какие финансовые программы доступны?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__answer" data-faq-answer>
+        <p>Кредит, лизинг для юридических лиц, trade-in и расширенное страхование — каждая программа рассчитывается индивидуально под модель.</p>
+      </div>
+    </div>
+
+    <div class="faq__item" data-faq-item>
+      <button class="faq__question" data-faq-trigger aria-expanded="false">
+        <span>Что входит в предпродажную инспекцию?</span>
+        <span class="faq__icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq__answer" data-faq-answer>
+        <p>Более 120 пунктов проверки: от компрессии двигателя и состояния подвески до юридической чистоты и истории пробега.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CTA -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- CONTACT -->
+<!-- ============================================================ -->
+<section class="contact" id="contact">
+  <div class="contact__inner">
+    <div class="section-head" data-reveal="fade-up">
+      <span class="section-head__index section-head__index--light">9 — Контакты</span>
+      <h2 class="section-head__title">Приезжайте.<br>Мы уже готовим кофе.</h2>
+    </div>
+
+    <div class="contact__grid">
+      <div class="contact__details" data-reveal="fade-up">
+        <dl class="contact__list">
+          <div>
+            <dt>Адрес</dt>
+            <dd>Москва, Ленинградское шоссе, 16</dd>
+          </div>
+          <div>
+            <dt>Телефон</dt>
+            <dd><a href="tel:+78005550101">+7 800 555-01-01</a></dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:atelier@velocityatelier.example">atelier@velocityatelier.example</a></dd>
+          </div>
+          <div>
+            <dt>Мессенджеры</dt>
+            <dd>
+              <a href="https://t.me/velocityatelier" target="_blank" rel="noopener">Telegram</a>
+              <a href="https://wa.me/78005550101" target="_blank" rel="noopener">WhatsApp</a>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="contact__social">
+          <a href="#" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="VK">VK</a>
+        </div>
+      </div>
+
+      <div class="contact__map" data-reveal="fade-up">
+        <iframe
+          title="Карта расположения Velocity Atelier"
+          src="https://yandex.ru/map-widget/v1/?ll=37.488000%2C55.818000&z=15"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <a href="#top" class="footer__logo">
+      <svg viewBox="0 0 48 48" class="footer__glyph" aria-hidden="true"><path d="M4 24 L20 24 L26 12 L32 36 L38 24 L44 24" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span>Velocity Atelier</span>
+    </a>
+    <p class="footer__note">© 2026 Velocity Atelier. Все мотоциклы проходят полную подготовку перед передачей владельцу.</p>
+    <div class="footer__links">
+      <a href="#faq">Вопросы</a>
+      <a href="#contact">Контакты</a>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script src="MotoSalon.js" defer></script>
+</body>
+</html>
