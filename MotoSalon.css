@@ -702,7 +702,6 @@ section > *:not(.hero__media):not(.hero__grid) {
 }
 .hero__actions .btn {
   text-align: center;
-  white-space: nowrap;
 }
 .hero__actions {
   display: flex;
